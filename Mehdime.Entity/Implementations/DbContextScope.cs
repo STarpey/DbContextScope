@@ -71,9 +71,6 @@ namespace Mehdime.Entity
         {
             if (_disposed)
                 throw new ObjectDisposedException("DbContextScope");
-            if (_completed)
-                throw new InvalidOperationException("You cannot call SaveChanges() more than once on a DbContextScope. A DbContextScope is meant to encapsulate a business transaction: create the scope at the start of the business transaction and then call SaveChanges() at the end. Calling SaveChanges() mid-way through a business transaction doesn't make sense and most likely mean that you should refactor your service method into two separate service method that each create their own DbContextScope and each implement a single business transaction.");
-
             // Only save changes if we're not a nested scope. Otherwise, let the top-level scope 
             // decide when the changes should be saved.
             var c = 0;
@@ -98,9 +95,7 @@ namespace Mehdime.Entity
                 throw new ArgumentNullException("cancelToken");
             if (_disposed)
                 throw new ObjectDisposedException("DbContextScope");
-            if (_completed)
-                throw new InvalidOperationException("You cannot call SaveChanges() more than once on a DbContextScope. A DbContextScope is meant to encapsulate a business transaction: create the scope at the start of the business transaction and then call SaveChanges() at the end. Calling SaveChanges() mid-way through a business transaction doesn't make sense and most likely mean that you should refactor your service method into two separate service method that each create their own DbContextScope and each implement a single business transaction.");
-
+            
             // Only save changes if we're not a nested scope. Otherwise, let the top-level scope 
             // decide when the changes should be saved.
             var c = 0;
